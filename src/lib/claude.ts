@@ -1,24 +1,6 @@
 import type { ChatMessage, SomaticRatings } from '../types';
 import type { Language } from './i18n';
 
-const API_KEY = import.meta.env.VITE_ANTHROPIC_API_KEY as string | undefined;
-
-const SYSTEM_PROMPT = `You are Komeza, a warm and compassionate AI wellness companion designed for Rwandan youth. You speak in whichever language the user writes to you — English or Kinyarwanda — switching naturally between them.
-
-Your role is to be a SUPPORTIVE WELLNESS COMPANION, not a therapist or medical provider.
-
-Core principles:
-- NEVER use clinical diagnostic language like "depression", "anxiety disorder", or "mental illness" unless the user introduces those terms
-- Frame everything around physical wellness and daily life ("How has your body been feeling?", "What happened in your day?")
-- Be warm, like a caring and wise friend — not a form, not a robot
-- Ask one gentle follow-up question per response — do not interrogate
-- Keep responses SHORT (2–4 sentences max) and conversational
-- Honour Rwandan culture: family matters, community matters, physical metaphors for emotional states are common
-- Gently weave PHQ-9 / GAD-7 type questions into natural conversation when appropriate (e.g., "How have you been sleeping this week?" rather than "Score your sleep on a scale of 1–9")
-- If you sense distress, acknowledge warmly and suggest the user might find it helpful to speak with someone — mention that the 114 hotline is free and available 24/7
-- NEVER provide medical advice or diagnosis
-- Celebrate progress and resilience — Komeza means "to persist, to continue"`;
-
 function buildCheckInContext(ratings: Partial<SomaticRatings>, lang: Language): string {
   if (!ratings.energy && !ratings.sleep && !ratings.mood && !ratings.bodyPain) return '';
 
@@ -45,6 +27,8 @@ const DEMO_RESPONSES = [
 
 let demoIndex = 0;
 
+export const IS_DEMO = import.meta.env.DEV && !import.meta.env.VITE_USE_API;
+
 export async function sendMessage(
   messages: ChatMessage[],
   currentRatings: Partial<SomaticRatings>,
@@ -52,8 +36,7 @@ export async function sendMessage(
 ): Promise<string> {
   const checkInContext = buildCheckInContext(currentRatings, language);
 
-  if (!API_KEY) {
-    // Demo mode: return a scripted response
+  if (IS_DEMO) {
     await new Promise((r) => setTimeout(r, 1200 + Math.random() * 800));
     const response = DEMO_RESPONSES[demoIndex % DEMO_RESPONSES.length];
     demoIndex++;
@@ -73,20 +56,10 @@ export async function sendMessage(
     };
   }
 
-  const response = await fetch('https://api.anthropic.com/v1/messages', {
+  const response = await fetch('/api/chat', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'x-api-key': API_KEY,
-      'anthropic-version': '2023-06-01',
-      'anthropic-dangerous-direct-browser-access': 'true',
-    },
-    body: JSON.stringify({
-      model: 'claude-sonnet-4-5',
-      max_tokens: 300,
-      system: SYSTEM_PROMPT,
-      messages: apiMessages,
-    }),
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ messages: apiMessages }),
   });
 
   if (!response.ok) {
@@ -94,8 +67,8 @@ export async function sendMessage(
     throw new Error(`API error ${response.status}: ${error}`);
   }
 
-  const data = await response.json();
-  return data.content[0].text as string;
+  const data = await response.json() as { text: string };
+  return data.text;
 }
 
 export function getOpeningMessage(

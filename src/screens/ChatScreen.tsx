@@ -2,7 +2,7 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useApp } from '../context/AppContext';
 import { t } from '../lib/i18n';
-import { sendMessage, getOpeningMessage } from '../lib/claude';
+import { sendMessage, getOpeningMessage, IS_DEMO } from '../lib/claude';
 import { detectCrisis } from '../lib/crisis';
 import { useVoice, speak, stopSpeaking } from '../hooks/useVoice';
 import type { ChatMessage } from '../types';
@@ -152,7 +152,6 @@ export default function ChatScreen() {
     }
   }
 
-  const apiKey = import.meta.env.VITE_ANTHROPIC_API_KEY;
   const activeInput = input || (voice.isListening ? voice.interimTranscript : '');
 
   return (
@@ -211,8 +210,8 @@ export default function ChatScreen() {
         </div>
       </div>
 
-      {/* No API key banner */}
-      {!apiKey && (
+      {/* Demo mode banner */}
+      {IS_DEMO && (
         <motion.div
           initial={{ opacity: 0, y: -8 }}
           animate={{ opacity: 1, y: 0 }}
