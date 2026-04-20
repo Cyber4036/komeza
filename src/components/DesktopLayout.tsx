@@ -322,7 +322,7 @@ export default function DesktopLayout({ children }: { children: React.ReactNode 
                 {language === 'rw' ? 'Yakozwe na' : 'Powered by'}
               </p>
               <p className="text-sm font-bold mt-1" style={{ color: 'var(--brand-text)' }}>Claude AI · Anthropic</p>
-              <p className="text-xs mt-1" style={{ color: 'var(--text-3)' }}>Rwanda Hackathon 2025</p>
+              <p className="text-xs mt-1" style={{ color: 'var(--text-3)' }}>Rwanda Hackathon 2026</p>
             </div>
           </motion.aside>
         </main>
@@ -336,7 +336,7 @@ export default function DesktopLayout({ children }: { children: React.ReactNode 
             <div className="flex items-center gap-3">
               <img src="/images/logo.png" alt="Komeza" className="h-7 w-auto object-contain" />
               <span className="text-xs" style={{ color: 'var(--text-3)' }}>
-                © 2025 · AI Mental Wellness for Rwanda · Built with Claude AI (Anthropic)
+                © 2026 · AI Mental Wellness for Rwanda · Built with Claude AI (Anthropic)
               </span>
             </div>
             <div className="flex items-center gap-6 text-xs" style={{ color: 'var(--text-3)' }}>
@@ -346,7 +346,7 @@ export default function DesktopLayout({ children }: { children: React.ReactNode 
                 {language === 'rw' ? '🆘 Ubufasha: 114' : '🆘 Crisis line: 114'}
               </a>
               <span>·</span>
-              <span>Rwanda Hackathon 2025</span>
+              <span>Rwanda Hackathon 2026</span>
             </div>
           </div>
         </footer>

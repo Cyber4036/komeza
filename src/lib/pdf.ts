@@ -201,7 +201,7 @@ export function generateResilienceBrief(
   // Footer
   doc.setTextColor(150, 150, 150);
   doc.setFontSize(8);
-  doc.text('Komeza · AI Mental Wellness Companion · Rwanda 2025 · Built with Claude AI (Anthropic)', W / 2, 287, { align: 'center' });
+  doc.text('Komeza · AI Mental Wellness Companion · Rwanda 2026 · Built with Claude AI (Anthropic)', W / 2, 287, { align: 'center' });
 
   doc.save('Komeza_Wellness_Brief.pdf');
 }

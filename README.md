@@ -132,5 +132,5 @@ Komeza is **not a medical device**. It is a wellness companion.
 
 ## Built By
 
-Daniel — Rwanda Hackathon 2025  
+Daniel — Rwanda Hackathon 2026  
 Powered by [Claude AI](https://anthropic.com) · Deployed on [Vercel](https://vercel.com)

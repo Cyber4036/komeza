@@ -182,7 +182,16 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       setDataLoaded(true);
     }
 
-    load().catch(console.error);
+    load().catch((err) => {
+      console.error('Firestore load failed, using localStorage fallback:', err);
+      const language    = loadLanguage();
+      const darkMode    = loadDarkMode();
+      const hasOnboarded = loadOnboarded();
+      const entries     = loadEntries().filter((e) => !e.id.startsWith('demo-'));
+      const chatHistory = loadChatHistory();
+      rawDispatch({ type: 'LOAD_ALL_USER_DATA', payload: { entries, chatHistory, language, darkMode, hasOnboarded } });
+      setDataLoaded(true);
+    });
   }, [user]);
 
   // ── Sync theme attribute ───────────────────────────────────────────────────
