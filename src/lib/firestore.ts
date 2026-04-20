@@ -1,6 +1,6 @@
 import {
   doc, setDoc, getDoc,
-  collection, getDocs, writeBatch,
+  collection, getDocs,
   query, orderBy, limit,
 } from 'firebase/firestore';
 import { db } from './firebase';
@@ -47,14 +47,9 @@ export async function loadEntriesFromCloud(uid: string): Promise<WellnessEntry[]
 
 // ─── Chat history ─────────────────────────────────────────────────────────────
 
-export async function saveChatHistoryToCloud(uid: string, messages: ChatMessage[]): Promise<void> {
+export async function saveChatMessageToCloud(uid: string, message: ChatMessage): Promise<void> {
   if (!db) return;
-  const ref = collection(db, 'users', uid, 'chatHistory');
-  const batch = writeBatch(db);
-  const existing = await getDocs(ref);
-  existing.docs.forEach((d) => batch.delete(d.ref));
-  messages.slice(-50).forEach((msg) => batch.set(doc(ref, msg.id), msg));
-  await batch.commit();
+  await setDoc(doc(db, 'users', uid, 'chatHistory', message.id), message);
 }
 
 export async function loadChatHistoryFromCloud(uid: string): Promise<ChatMessage[]> {

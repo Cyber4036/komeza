@@ -1,6 +1,6 @@
 import { initializeApp, getApps } from 'firebase/app';
 import { getAuth, GoogleAuthProvider } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
+import { initializeFirestore, persistentLocalCache, persistentMultipleTabManager } from 'firebase/firestore';
 
 const cfg = {
   apiKey:            import.meta.env.VITE_FIREBASE_API_KEY,
@@ -18,5 +18,11 @@ const app = FIREBASE_CONFIGURED
   : null;
 
 export const auth = app ? getAuth(app) : null;
-export const db   = app ? getFirestore(app) : null;
+export const db   = app
+  ? initializeFirestore(app, {
+      localCache: persistentLocalCache({
+        tabManager: persistentMultipleTabManager(),
+      }),
+    })
+  : null;
 export const googleProvider = new GoogleAuthProvider();

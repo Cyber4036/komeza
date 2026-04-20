@@ -10,6 +10,7 @@ import InsightsScreen from './screens/InsightsScreen';
 import BriefScreen from './screens/BriefScreen';
 import SafetyScreen from './screens/SafetyScreen';
 import AuthScreen from './screens/AuthScreen';
+import SyncBanner from './components/SyncBanner';
 
 const SCREEN_ORDER: Record<string, number> = {
   onboarding: -1,
@@ -50,6 +51,7 @@ function AppInner() {
 
   return (
     <div className="flex flex-col" style={{ minHeight: '100dvh' }}>
+      <SyncBanner />
       <AnimatePresence mode="wait">
         <motion.div
           key={screen}
