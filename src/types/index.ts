@@ -43,4 +43,14 @@ export type AppAction =
   | { type: 'TRIGGER_CRISIS' }
   | { type: 'DISMISS_CRISIS' }
   | { type: 'LOAD_ENTRIES'; payload: WellnessEntry[] }
-  | { type: 'TOGGLE_DARK_MODE' };
+  | { type: 'TOGGLE_DARK_MODE' }
+  | {
+      type: 'LOAD_ALL_USER_DATA';
+      payload: {
+        entries: WellnessEntry[];
+        chatHistory: ChatMessage[];
+        language: Language;
+        darkMode: boolean;
+        hasOnboarded: boolean;
+      };
+    };

@@ -1,6 +1,8 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useRef, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useApp } from '../context/AppContext';
+import { useAuth } from '../context/AuthContext';
+import { FIREBASE_CONFIGURED } from '../lib/firebase';
 import HowItWorksModal from './HowItWorksModal';
 
 const FEATURES = [
@@ -12,8 +14,21 @@ const FEATURES = [
 
 export default function DesktopLayout({ children }: { children: React.ReactNode }) {
   const { state, dispatch } = useApp();
+  const { user, signOut } = useAuth();
   const { language, screen, darkMode } = state;
   const [howItWorksOpen, setHowItWorksOpen] = useState(false);
+  const [userMenuOpen, setUserMenuOpen]     = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+        setUserMenuOpen(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   return (
     <>
@@ -101,6 +116,74 @@ export default function DesktopLayout({ children }: { children: React.ReactNode 
               <span>{language === 'en' ? '🇷🇼' : '🇬🇧'}</span>
               <span>{language === 'en' ? 'RW' : 'EN'}</span>
             </button>
+
+            {/* User avatar — only when Firebase is configured and user is signed in */}
+            {FIREBASE_CONFIGURED && user && (
+              <div className="relative" ref={menuRef}>
+                <button
+                  onClick={() => setUserMenuOpen((o) => !o)}
+                  className="flex items-center gap-2 pl-1 pr-3 py-1 rounded-full transition-all hover:scale-105"
+                  style={{ background: 'var(--bg-muted)', border: '1.5px solid var(--border-1)' }}
+                  title={user.displayName ?? user.email ?? ''}
+                >
+                  {user.photoURL ? (
+                    <img
+                      src={user.photoURL}
+                      alt={user.displayName ?? 'User'}
+                      className="w-7 h-7 rounded-full object-cover"
+                    />
+                  ) : (
+                    <div
+                      className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold text-white"
+                      style={{ background: 'var(--brand-mid)' }}
+                    >
+                      {(user.displayName ?? user.email ?? 'U')[0].toUpperCase()}
+                    </div>
+                  )}
+                  <span className="hidden lg:block text-xs font-semibold max-w-[96px] truncate" style={{ color: 'var(--text-1)' }}>
+                    {user.displayName?.split(' ')[0] ?? user.email?.split('@')[0]}
+                  </span>
+                  <span className="text-xs" style={{ color: 'var(--text-3)' }}>▾</span>
+                </button>
+
+                <AnimatePresence>
+                  {userMenuOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -6, scale: 0.97 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: -4, scale: 0.97 }}
+                      transition={{ duration: 0.14 }}
+                      className="absolute right-0 top-full mt-2 w-52 rounded-2xl overflow-hidden z-50"
+                      style={{
+                        background: 'var(--bg-card)',
+                        boxShadow: '0 8px 32px rgba(0,0,0,0.14)',
+                        border: '1px solid var(--border-1)',
+                      }}
+                    >
+                      {/* User info */}
+                      <div className="px-4 py-3 border-b" style={{ borderColor: 'var(--border-1)' }}>
+                        <p className="text-xs font-semibold truncate" style={{ color: 'var(--text-1)' }}>
+                          {user.displayName}
+                        </p>
+                        <p className="text-xs truncate mt-0.5" style={{ color: 'var(--text-3)' }}>
+                          {user.email}
+                        </p>
+                      </div>
+
+                      {/* Sign out */}
+                      <button
+                        onClick={() => { setUserMenuOpen(false); signOut(); }}
+                        className="w-full flex items-center gap-2 px-4 py-3 text-sm font-medium transition-colors hover:opacity-75"
+                        style={{ color: '#E53E3E' }}
+                      >
+                        <span>→</span>
+                        <span>{language === 'rw' ? 'Sohoka' : 'Sign out'}</span>
+                      </button>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            )}
           </div>
         </header>
 
@@ -220,7 +303,7 @@ export default function DesktopLayout({ children }: { children: React.ReactNode 
               </p>
               <div className="space-y-3 text-xs" style={{ color: 'var(--text-2)' }}>
                 {[
-                  { icon: '🔒', text: language === 'rw' ? 'Amakuru ku gikoresho cyawe gusa' : 'Data stays on your device' },
+                  { icon: '🔒', text: FIREBASE_CONFIGURED ? (language === 'rw' ? 'Amakuru abikwa mu konte yawe bwite' : 'Data synced to your account') : (language === 'rw' ? 'Amakuru ku gikoresho cyawe gusa' : 'Data stays on your device') },
                   { icon: '🚫', text: language === 'rw' ? 'Nta isuzuma rya muganga' : 'No medical diagnosis' },
                   { icon: '🛡️', text: language === 'rw' ? 'Umurongo wa 114 ubikwa hejuru' : 'Crisis line always visible' },
                   { icon: '✅', text: language === 'rw' ? 'Yubahiriza umuco w\'u Rwanda' : 'Culturally designed for Rwanda' },

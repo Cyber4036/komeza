@@ -1,4 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion';
+import { AuthProvider, useAuth } from './context/AuthContext';
 import { AppProvider, useApp } from './context/AppContext';
 import DesktopLayout from './components/DesktopLayout';
 import BottomNav from './components/BottomNav';
@@ -8,8 +9,8 @@ import ChatScreen from './screens/ChatScreen';
 import InsightsScreen from './screens/InsightsScreen';
 import BriefScreen from './screens/BriefScreen';
 import SafetyScreen from './screens/SafetyScreen';
+import AuthScreen from './screens/AuthScreen';
 
-// Directional slide transitions
 const SCREEN_ORDER: Record<string, number> = {
   onboarding: -1,
   home: 0,
@@ -71,12 +72,79 @@ function AppInner() {
   );
 }
 
+function DataLoader({ children }: { children: React.ReactNode }) {
+  const { dataLoaded } = useApp();
+
+  if (!dataLoaded) {
+    return (
+      <div
+        className="flex flex-col items-center justify-center"
+        style={{ minHeight: '100dvh', background: 'var(--bg-app)' }}
+      >
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.4 }}
+          className="flex flex-col items-center gap-4"
+        >
+          <img src="/images/logo.png" alt="Komeza" className="h-14 w-auto object-contain" />
+          <div className="flex gap-1.5">
+            {[0, 1, 2].map((i) => (
+              <motion.div
+                key={i}
+                className="w-2 h-2 rounded-full"
+                style={{ background: 'var(--brand-accent)' }}
+                animate={{ opacity: [0.3, 1, 0.3] }}
+                transition={{ duration: 1.1, repeat: Infinity, delay: i * 0.18 }}
+              />
+            ))}
+          </div>
+        </motion.div>
+      </div>
+    );
+  }
+
+  return <>{children}</>;
+}
+
+function AuthGuard({ children }: { children: React.ReactNode }) {
+  const { user, authLoading, configured } = useAuth();
+
+  if (authLoading) {
+    return (
+      <div
+        className="flex items-center justify-center"
+        style={{ minHeight: '100dvh', background: 'var(--bg-app)' }}
+      >
+        <motion.img
+          src="/images/logo.png"
+          alt="Komeza"
+          className="h-14 w-auto object-contain"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.4 }}
+        />
+      </div>
+    );
+  }
+
+  if (configured && !user) return <AuthScreen />;
+
+  return <>{children}</>;
+}
+
 export default function App() {
   return (
-    <AppProvider>
-      <DesktopLayout>
-        <AppInner />
-      </DesktopLayout>
-    </AppProvider>
+    <AuthProvider>
+      <AuthGuard>
+        <AppProvider>
+          <DataLoader>
+            <DesktopLayout>
+              <AppInner />
+            </DesktopLayout>
+          </DataLoader>
+        </AppProvider>
+      </AuthGuard>
+    </AuthProvider>
   );
 }

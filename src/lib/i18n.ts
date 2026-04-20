@@ -88,6 +88,11 @@ export const t = {
     trends: 'Insights',
     report: 'Brief',
 
+    // Auth
+    signIn: 'Sign in',
+    signOut: 'Sign out',
+    signedInAs: 'Signed in as',
+
     // Common
     loading: 'Loading...',
     back: 'Back',
@@ -180,6 +185,11 @@ export const t = {
     chat: 'Ikiganiro',
     trends: 'Imiterere',
     report: 'Raporo',
+
+    // Auth
+    signIn: 'Injira',
+    signOut: 'Sohoka',
+    signedInAs: 'Winjiye nka',
 
     // Common
     loading: 'Gutegereza...',
