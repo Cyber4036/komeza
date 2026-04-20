@@ -7,9 +7,11 @@ const CRISIS_KEYWORDS_EN = [
 ];
 
 const CRISIS_KEYWORDS_RW = [
-  "nyanze kubaho", "nshaka gupfa", "sinshaka kubaho", "kwiyahura",
-  "gupfa", "nta mpamvu yo kubaho", "sinshaka kubaho",
-  "nshaka guhera", "kurimbuka", "kwikoma",
+  "nanze kubaho", "nshaka gupfa", "sinshaka kubaho", "kwiyahura",
+  "nta mpamvu yo kubaho", "kurimbuka",
+  "kwiyica", "ndashaka gupfa", "mbeho iki", "kwitaba imana",
+  "kurama birandambiye",
+  "igihano cy'ubuzima", "nta cyizere", "nzapfa ryari"
 ];
 
 export function detectCrisis(text: string): boolean {

@@ -140,7 +140,7 @@ export default function HomeScreen() {
                   >
                     <span className="text-sm">🔥</span>
                     <span className="text-xs font-bold" style={{ color: '#E9A720' }}>
-                      {streak} {language === 'rw' ? (streak === 1 ? 'umunsi' : 'iminsi') : (streak === 1 ? 'day' : 'days')}
+                      {streak} {streak === 1 ? tr.streakDay : tr.streakDays}
                     </span>
                   </motion.div>
                 )}
@@ -162,7 +162,7 @@ export default function HomeScreen() {
                 style={{ color: '#74C69D' }}
               >
                 <span>ⓘ</span>
-                <span>{language === 'rw' ? 'Uko bikorwa' : 'How it works'}</span>
+                <span>{tr.howItWorks}</span>
               </button>
             </div>
           </motion.div>
@@ -196,7 +196,7 @@ export default function HomeScreen() {
               >
                 <span>✨</span>
                 <span className="text-xs font-semibold" style={{ color: '#74C69D' }}>
-                  {language === 'rw' ? 'Byarangiye! Komeza ikiganiro.' : 'All done! Ready for your chat.'}
+                  {tr.allDone}
                 </span>
               </motion.div>
             )}
@@ -219,7 +219,7 @@ export default function HomeScreen() {
                 className="text-xs font-medium mt-0.5 hover:underline"
                 style={{ color: '#2d6a4f' }}
               >
-                {language === 'rw' ? 'Komeza ikiganiro →' : 'Continue your chat →'}
+                {tr.continueChat} →
               </button>
             </div>
           </motion.div>
@@ -261,7 +261,7 @@ export default function HomeScreen() {
                       <p className="text-xs mt-0.5" style={{ color: 'var(--text-4)' }}>
                         {selected
                           ? `${selected}/5`
-                          : language === 'rw' ? 'Kanda ugaragaze' : 'Tap to rate'}
+                          : tr.tapToRate}
                       </p>
                     </div>
                   </div>

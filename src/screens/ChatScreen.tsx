@@ -404,9 +404,7 @@ export default function ChatScreen() {
         </div>
 
         <p className="text-center text-xs mt-2" style={{ color: 'var(--text-4)' }}>
-          {voice.isSupported
-            ? (language === 'rw' ? 'Kanda 🎙 uvuge, cyangwa wandike' : 'Tap 🎙 to speak, or type freely')
-            : tr.voiceHint}
+          {voice.isSupported ? tr.voiceHintMic : tr.voiceHint}
         </p>
       </div>
     </div>
