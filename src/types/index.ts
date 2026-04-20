@@ -21,6 +21,8 @@ export interface ChatMessage {
   timestamp: string;
 }
 
+export type SyncStatus = 'idle' | 'syncing' | 'error' | 'offline';
+
 export interface AppState {
   language: Language;
   screen: Screen;
@@ -30,6 +32,7 @@ export interface AppState {
   currentRatings: Partial<SomaticRatings>;
   crisisDetected: boolean;
   darkMode: boolean;
+  syncStatus: SyncStatus;
 }
 
 export type AppAction =
@@ -46,6 +49,18 @@ export type AppAction =
   | { type: 'TOGGLE_DARK_MODE' }
   | {
       type: 'LOAD_ALL_USER_DATA';
+      payload: {
+        entries: WellnessEntry[];
+        chatHistory: ChatMessage[];
+        language: Language;
+        darkMode: boolean;
+        hasOnboarded: boolean;
+      };
+    }
+  | { type: 'SET_SYNC_STATUS'; payload: SyncStatus }
+  | { type: 'SET_ONLINE'; payload: boolean }
+  | {
+      type: 'MERGE_CLOUD_DATA';
       payload: {
         entries: WellnessEntry[];
         chatHistory: ChatMessage[];

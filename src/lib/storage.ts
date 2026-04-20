@@ -61,6 +61,25 @@ export function saveDarkMode(dark: boolean): void {
   localStorage.setItem(KEYS.darkMode, String(dark));
 }
 
+const QUEUE_KEY = 'komeza_pending_sync';
+
+export function loadPendingQueue(): string[] {
+  try {
+    const raw = localStorage.getItem(QUEUE_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch {
+    return [];
+  }
+}
+
+export function savePendingQueue(ids: string[]): void {
+  localStorage.setItem(QUEUE_KEY, JSON.stringify(ids));
+}
+
+export function clearPendingQueue(): void {
+  localStorage.removeItem(QUEUE_KEY);
+}
+
 // Demo entries for a rich first-open experience
 function generateDemoEntries(): WellnessEntry[] {
   const today = new Date();
