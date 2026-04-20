@@ -4,9 +4,9 @@ import { useApp } from '../context/AppContext';
 import HowItWorksModal from './HowItWorksModal';
 
 const FEATURES = [
-  { emoji: '🫂', en: 'No mental health labels — start with how your body feels', rw: 'Nta majambo y\'ubuzima bwo mu mutwe — tangira uko umubiri wumva' },
-  { emoji: '🤖', en: 'Claude AI listens in English & Kinyarwanda', rw: 'Claude AI iumva mu Cyongereza no mu Kinyarwanda' },
-  { emoji: '📊', en: 'Spot patterns in your energy, sleep, and mood over time', rw: 'Reba imiterere y\'imbaraga, itiro, n\'umutima wawe' },
+  { emoji: '🫂', en: 'No mental health labels — start with how your body feels', rw: 'Nta magambo y\'ubuzima bwo mu mutwe — tangira uko umubiri wumva' },
+  { emoji: '🤖', en: 'Claude AI listens in English & Kinyarwanda', rw: 'Claude AI yumva mu Cyongereza no mu Kinyarwanda' },
+  { emoji: '📊', en: 'Spot patterns in your energy, sleep, and mood over time', rw: 'Reba imiterere y\'imbaraga, ibitotsi, n\'akanyamuneza mu minsi' },
   { emoji: '🔒', en: 'Data stays on your device — nothing sent without your knowledge', rw: 'Amakuru asigara ku gikoresho cyawe gusa' },
 ];
 

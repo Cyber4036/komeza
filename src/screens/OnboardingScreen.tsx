@@ -112,7 +112,7 @@ export default function OnboardingScreen() {
                     style={{ color: '#74C69D' }}
                   >
                     <span>ⓘ</span>
-                    <span>{lang === 'rw' ? 'Uko bikorwa?' : 'How does it work?'}</span>
+                    <span>{t[lang].howItWorks}</span>
                   </button>
                 </motion.div>
 

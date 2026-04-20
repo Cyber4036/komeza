@@ -84,10 +84,10 @@ export default function BriefScreen() {
           <div className="text-center py-16">
             <div className="text-5xl mb-4">📄</div>
             <p className="text-base mb-2 font-semibold" style={{ color: 'var(--text-1)' }}>
-              {language === 'rw' ? 'Nta makuru ahagije' : 'Not enough data yet'}
+              {tr.notEnoughData}
             </p>
             <p className="text-sm" style={{ color: 'var(--text-2)' }}>
-              {language === 'rw' ? 'Injira iminsi 3 kugirango ubone raporo yawe.' : 'Check in for at least 3 days to generate your brief.'}
+              {tr.checkInMin3Days}
             </p>
           </div>
         ) : (
@@ -114,23 +114,26 @@ export default function BriefScreen() {
             {/* What this means */}
             <div className="rounded-3xl p-5" style={{ background: 'var(--bg-card)', boxShadow: 'var(--shadow-card)' }}>
               <p className="font-semibold text-sm mb-4" style={{ color: 'var(--text-1)' }}>
-                {language === 'rw' ? 'Ibi bisobanura iki?' : 'What this means'}
+                {tr.whatThisMeans}
               </p>
               <div className="space-y-3 text-sm" style={{ color: 'var(--text-1)' }}>
                 {parseFloat(avg(energies)) < 3 && (
-                  <p>⚡ {language === 'rw' ? 'Imbaraga zari nke cyane. Amahugurwa n\'imiturire birashobora kufasha.' : 'Energy has been consistently below average. Rest and nutrition are worth reviewing.'}</p>
+                  <p>⚡ {tr.briefEnergyLow}</p>
                 )}
                 {parseFloat(avg(sleeps)) < 3 && (
-                  <p>🌙 {language === 'rw' ? 'Itiro ntiryari ryiza. Ongera ugerageze gutuza mbere yo kuryama.' : 'Sleep quality was below optimal. Consider a calming evening routine.'}</p>
+                  <p>🌙 {tr.briefSleepLow}</p>
                 )}
                 {parseFloat(avg(moods)) < 2.5 && (
-                  <p>☀️ {language === 'rw' ? 'Umutima wagaragaye nke. Raporo iyi irashobora kufasha muganga wawe.' : 'Mood scores were low. This brief may support a conversation with a health provider.'}</p>
+                  <p>☀️ {tr.briefMoodLow}</p>
                 )}
                 {painDays >= 3 && (
-                  <p>🫂 {language === 'rw' ? `Ububabare bw'umubiri bwaravuzwe iminsi ${painDays}. Bifite akamaro kuvuga na muganga.` : `Body discomfort reported on ${painDays} days. Worth discussing with a clinician.`}</p>
+                  <p>🫂 {language === 'rw'
+                    ? `Ububabare bw'umubiri bwaravuzwe iminsi ${painDays} mu minsi 7. Bifite akamaro kuvuga na muganga.`
+                    : `Body discomfort reported on ${painDays} days. Worth discussing with a clinician.`}
+                  </p>
                 )}
                 {parseFloat(avg(energies)) >= 4 && parseFloat(avg(moods)) >= 4 && (
-                  <p>✨ {language === 'rw' ? 'Imyigire myiza muri icyi cyumweru. Komeza!' : 'Strong week overall — you are doing well. Keep it up!'}</p>
+                  <p>✨ {tr.briefGoodWeek}</p>
                 )}
               </div>
             </div>
@@ -138,7 +141,7 @@ export default function BriefScreen() {
             {/* Recent log preview */}
             <div className="rounded-3xl p-5" style={{ background: 'var(--bg-card)', boxShadow: 'var(--shadow-card)' }}>
               <p className="font-semibold text-sm mb-4" style={{ color: 'var(--text-1)' }}>
-                {language === 'rw' ? 'Ibyanditswe 7 bishize' : 'Last 7 check-ins'}
+                {tr.last7Checkins}
               </p>
               <div className="space-y-2">
                 {week.map((entry) => {

@@ -54,7 +54,7 @@ export function generateResilienceBrief(
   doc.setTextColor(26, 71, 49);
   doc.setFontSize(13);
   doc.setFont('helvetica', 'bold');
-  doc.text(isRw ? 'Inifaranga y\'icyumweru (iminsi 7 ishize)' : 'Weekly Snapshot (Last 7 Days)', 20, y);
+  doc.text(isRw ? 'Incamake y\'icyumweru (iminsi 7 ishize)' : 'Weekly Snapshot (Last 7 Days)', 20, y);
 
   y += 8;
   doc.setDrawColor(26, 71, 49);
@@ -68,9 +68,9 @@ export function generateResilienceBrief(
   const pains = weekEntries.map((e) => e.ratings.bodyPain);
 
   const stats = [
-    { label: isRw ? 'Imbaraga isanzwe' : 'Avg. Energy', value: avg(energies), sub: ratingLabel(parseFloat(avg(energies))) },
-    { label: isRw ? 'Itiro rya magingo' : 'Avg. Sleep Quality', value: avg(sleeps), sub: ratingLabel(parseFloat(avg(sleeps))) },
-    { label: isRw ? 'Umutima wa magingo' : 'Avg. Mood', value: avg(moods), sub: ratingLabel(parseFloat(avg(moods))) },
+    { label: isRw ? 'Impuzandengo y\'imbaraga' : 'Avg. Energy', value: avg(energies), sub: ratingLabel(parseFloat(avg(energies))) },
+    { label: isRw ? 'Impuzandengo y\'ibitotsi' : 'Avg. Sleep Quality', value: avg(sleeps), sub: ratingLabel(parseFloat(avg(sleeps))) },
+    { label: isRw ? 'Impuzandengo y\'akanyamuneza' : 'Avg. Mood', value: avg(moods), sub: ratingLabel(parseFloat(avg(moods))) },
     { label: isRw ? "Iminsi y'ububabare" : 'Days with Pain', value: String(pains.filter((p) => p >= 3).length), sub: isRw ? 'mu minsi 7' : 'of 7 days' },
   ];
 
@@ -104,7 +104,7 @@ export function generateResilienceBrief(
   y += 6;
 
   const headers = isRw
-    ? ['Itariki', 'Imbaraga', 'Itiro', 'Umutima', 'Ububabare']
+    ? ['Itariki', 'Imbaraga', 'Ibitotsi', 'Akanyamuneza', 'Ububabare']
     : ['Date', 'Energy', 'Sleep', 'Mood', 'Body Pain'];
 
   const colWidths = [45, 30, 30, 30, 30];
@@ -151,7 +151,7 @@ export function generateResilienceBrief(
   doc.setTextColor(26, 71, 49);
   doc.setFontSize(13);
   doc.setFont('helvetica', 'bold');
-  doc.text(isRw ? 'Ibisinyitseho' : 'Pattern Observations', 20, y);
+  doc.text(isRw ? 'Ibigaragara' : 'Pattern Observations', 20, y);
 
   y += 6;
   doc.line(20, y, W - 20, y);

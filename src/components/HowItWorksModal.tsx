@@ -11,13 +11,13 @@ const STEPS = [
     icon: '🌿',
     color: '#1a4731',
     en: { title: 'Daily Check-In', desc: 'Rate your energy, sleep, mood and body comfort in under a minute. No right or wrong answers.' },
-    rw: { title: 'Genzura bya Buri Munsi', desc: 'Suzuma imbaraga, itiro, umutima n\'ubuzima bw\'umubiri mu minota mike. Nta gisubizo cyiza cyangwa cyabi.' },
+    rw: { title: 'Genzura bya Buri Munsi', desc: 'Suzuma imbaraga, ibitotsi, akanyamuneza n\'ubuzima bw\'umubiri mu minota mike. Nta gisubizo cyiza cyangwa cyabi.' },
   },
   {
     icon: '💬',
     color: '#E9357A',
     en: { title: 'Chat with Komeza', desc: 'Your AI companion listens warmly in English or Kinyarwanda. Share your day, ask questions, no clinical labels.' },
-    rw: { title: 'Ganira na Komeza', desc: 'Inshuti yawe ya AI ikumva mu Cyongereza no mu Kinyarwanda. Sangira umunsi wawe, nta majambo ya muganga.' },
+    rw: { title: 'Ganira na Komeza', desc: 'Inshuti yawe ya AI yumva mu Cyongereza no mu Kinyarwanda. Sangira umunsi wawe, nta magambo ya muganga.' },
   },
   {
     icon: '📊',

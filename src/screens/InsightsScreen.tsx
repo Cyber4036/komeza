@@ -9,8 +9,8 @@ import type { WellnessEntry } from '../types';
 
 const SERIES = [
   { key: 'energy',    color: '#FF8C42', label_en: 'Energy',     label_rw: 'Imbaraga' },
-  { key: 'sleep',     color: '#7C5CBF', label_en: 'Sleep',      label_rw: 'Itiro'    },
-  { key: 'mood',      color: '#E9357A', label_en: 'Mood',       label_rw: 'Umutima'  },
+  { key: 'sleep',     color: '#7C5CBF', label_en: 'Sleep',      label_rw: 'Ibitotsi'     },
+  { key: 'mood',      color: '#E9357A', label_en: 'Mood',       label_rw: 'Akanyamuneza' },
   { key: 'bodyPain',  color: '#3B82F6', label_en: 'Body Pain',  label_rw: 'Ububabare'},
 ];
 
@@ -50,13 +50,13 @@ function buildObservations(entries: WellnessEntry[], lang: 'en' | 'rw'): string[
 
   if (avg(sleeps) < 3) {
     obs.push(lang === 'rw'
-      ? '🌙 Itiro ryawe ntiryari ryiza. Uburyo bwo gutuza ubwira bwa nijoro rishobora gufasha.'
+      ? '🌙 Ibitotsi byawe ntibyari bihagije. Uburyo bwo gutuza mbere yo guturika bushobora gufasha.'
       : '🌙 Sleep quality has been below average. A wind-down routine before bed may help.');
   }
 
   if (avg(moods) < 2.5) {
     obs.push(lang === 'rw'
-      ? '☀️ Umutima wawe wagaragaye nke. Iyi raporo irashobora kufasha muganga wawe kumva ibintu byinshi.'
+      ? '☀️ Akanyamuneza kawe kagaragaye nke. Iyi raporo irashobora kufasha muganga wawe kumva ibintu byinshi.'
       : '☀️ Mood scores were notably low. Consider sharing this brief with a health professional.');
   }
 
@@ -72,13 +72,13 @@ function buildObservations(entries: WellnessEntry[], lang: 'en' | 'rw'): string[
   });
   if (lowEnergyThursdays.length > 0) {
     obs.push(lang === 'rw'
-      ? '📊 Imbaraga zawe zigaragara nke ku wa gatanu — ibi birashobora guturiranira n\'ibintu bimwe.'
+      ? '📊 Imbaraga zawe zigaragara nke ku wa kane — hano hashobora kuba imiterere ifite akamaro.'
       : '📊 Your energy tends to dip on Thursdays — there may be a pattern worth exploring.');
   }
 
   if (!obs.length) {
     obs.push(lang === 'rw'
-      ? '✨ Ubuzima bwawe bwarafanye neza muri icyi cyumweru. Komeza!'
+      ? '✨ Ubuzima bwawe bwagaragaye neza muri iki cyumweru. Komeza!'
       : '✨ Your wellness looks balanced this week. Keep going!');
   }
 
@@ -121,7 +121,7 @@ export default function InsightsScreen() {
           {tr.insightsTitle}
         </h1>
         <p className="text-sm" style={{ color: 'rgba(255,255,255,0.6)' }}>
-          {language === 'rw' ? 'Amakuru ashingiye ku magenzura yawe' : 'Based on your daily check-ins'}
+          {tr.basedOnCheckins}
         </p>
       </div>
 
@@ -178,7 +178,7 @@ export default function InsightsScreen() {
           {data.length > 1 && (
             <div className="rounded-3xl p-4" style={{ background: 'var(--bg-card)', boxShadow: 'var(--shadow-card)' }}>
               <p className="text-sm font-semibold mb-4" style={{ color: 'var(--text-1)' }}>
-                {language === 'rw' ? 'Imiterere yo mu minsi' : 'Daily Trends'}
+                {tr.dailyTrends}
               </p>
               <ResponsiveContainer width="100%" height={200}>
                 <AreaChart data={data} margin={{ top: 5, right: 5, bottom: 0, left: -20 }}>
