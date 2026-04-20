@@ -4,9 +4,21 @@
 
 *Komeza* means **to persist, to continue, to thrive** in Kinyarwanda. The name came before the app did — because the word already captured everything we wanted for the people who would use it.
 
-The starting point was a number that is hard to sit with: **1 in 5 people in Rwanda** meets the criteria for a mental disorder, according to the 2018 Rwanda Mental Health Survey — a rate that exceeds the global average. Among young people specifically, depression prevalence ranges from **9.5% to 16.8%**, and that figure climbs higher for youth navigating chronic illness or trauma. Globally, the WHO estimates that **1 in 7 adolescents (ages 10–19)** lives with a diagnosable mental health condition, making it the leading cause of disability in that age group.
+The starting point was a number that is hard to sit with: according to the 2018 Rwanda Mental Health Survey, **1 in 5 people in Rwanda** meets the criteria for a mental disorder — a prevalence of
 
-The gap between need and access is where this project began. Rwanda has **16 psychiatrists** for a population of nearly 14 million — roughly **1 per 862,000 people**, or 0.06 per 100,000. The country trains only 3–4 psychiatry graduates per year. Despite this, only **5.6%** of those who need mental health support ever reach formal care. The barrier is not always cost or geography — it is stigma, unfamiliarity with clinical language, and the absence of a first step that feels human rather than medical.
+$$P(\text{disorder}) = 20.49\%$$
+
+which exceeds the global average. Among young people specifically, depression prevalence ranges from $9.5\%$ to $16.8\%$, climbing higher for youth navigating chronic illness or trauma. Globally, the WHO estimates that **1 in 7 adolescents (ages 10–19)** lives with a diagnosable mental health condition, making it the leading cause of disability in that age group.
+
+The gap between need and access is where this project began. Rwanda has only **16 psychiatrists** for a population of nearly 14 million:
+
+$$\text{Psychiatrist density} = \frac{16}{13{,}800{,}000} \approx 0.06 \text{ per } 100{,}000 \text{ people}$$
+
+The country trains only $3$–$4$ psychiatry graduates per year. Despite this, only **5.6%** of those who need mental health support ever reach formal care:
+
+$$P(\text{seeking care} \mid \text{need}) = 5.6\%$$
+
+The barrier is not always cost or geography — it is stigma, unfamiliarity with clinical language, and the absence of a first step that feels human rather than medical.
 
 We built Komeza to be that first step.
 
